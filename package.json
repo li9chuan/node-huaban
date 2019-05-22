@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "format": "prettier --write lib/**/*.js bin/*",
-    "test": "echo 'test not written'; exit 1"
+    "test": "echo 'test not written'; exit 1",
+    "download":"node bin/huaban https://huaban.com/boards/13410359/ -c 10"
   },
   "bin": {
     "huaban": "bin/huaban"
