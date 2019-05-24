@@ -1,5 +1,5 @@
 const path = require('path')
-const fse = require('fs-extra')
+// const fse = require('fs-extra')
 const sanitizeFilename = require('sanitize-filename')
 const _ = require('lodash')
 const mime = require('mime')
@@ -7,6 +7,7 @@ const debug = require('debug')('huaban:index')
 const logSymbols = require('log-symbols')
 const pmap = require('promise.map')
 const util = require('./util')
+const log = require('electron-log')
 
 /**
  * image host
@@ -22,7 +23,7 @@ const imgHosts = {
  * get board data
  */
 
-const getBoard = function(html) {
+const getBoard = function (html) {
   // debug('html in getBoard: %s', html);
 
   /* eslint quotes: 0 */
@@ -39,7 +40,7 @@ const getBoard = function(html) {
  * get pins on a page
  */
 
-const getPagePins = function(html) {
+const getPagePins = function (html) {
   const board = getBoard(html)
   return board.pins
 }
@@ -81,8 +82,9 @@ const getPins = async (url, total) => {
 }
 
 module.exports = class HuabanBoard {
-  constructor(url) {
+  constructor(url, dest) {
     this.url = url
+    this.dest = dest
     this.title = undefined
     this.pins = undefined
   }
@@ -106,8 +108,8 @@ module.exports = class HuabanBoard {
     const title = this.title
     const id = this.id
     const folderName = sanitizeFilename(`${id}-${title}`)
-    const dir = path.resolve(folderName)
-    fse.ensureDirSync(dir)
+    const dir = path.resolve(this.dest, folderName)
+    // fse.ensureDirSync(dir)
 
     // pad length
     const numLength = String(this.pins.length).length
@@ -115,19 +117,19 @@ module.exports = class HuabanBoard {
 
     return await pmap(
       this.pins,
-      function(pin, index) {
+      function (pin, index) {
         const num = _.padStart(String(index + 1), numLength, '0') // 001
         const dest = path.join(dir, `${pin.id}.${pin.ext}`)
         // const dest = path.join(dir, `${num}.${pin.ext}`)
 
         return util
           .tryDownload(pin.src, dest, timeout, maxTimes)
-          .then(function() {
-            console.log(`${logSymbols.success} %s/%s 下载成功`, num, length)
+          .then(function () {
+            log.info(`${logSymbols.success} %s/%s success`, num, length)
           })
-          .catch(function(e) {
-            console.error(`${logSymbols.error} %s/%s 下载失败`, num, length)
-            console.error(e.stack || e)
+          .catch(function (e) {
+            log.error(`${logSymbols.error} %s/%s failed`, num, length)
+            log.error(e.stack || e)
           })
       },
       concurrency

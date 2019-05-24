@@ -2,33 +2,34 @@
   "name": "node-huaban",
   "version": "1.4.0",
   "description": "huaban(huaban.com) board downloader",
-  "main": "lib/index.js",
+  "main": "src/huaban.js",
   "scripts": {
+    "start": "electron lib/",
     "format": "prettier --write lib/**/*.js bin/*",
-    "test": "echo 'test not written'; exit 1",
-    "download":"node bin/huaban https://huaban.com/boards/13410359/ -c 10"
+    "pack": "gulp pack",
+    "download": "node bin/huaban https://huaban.com/boards/28669491/ -c 10"
   },
   "bin": {
     "huaban": "bin/huaban"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/magicdawn/node-huaban.git"
+    "url": "git+https://github.com/koalaylj/node-huaban.git"
   },
   "keywords": [
     "huaban",
     "downloader"
   ],
-  "author": "magicdawn",
+  "author": "koalaylj",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/magicdawn/node-huaban/issues"
+    "url": "https://github.com/koalaylj/node-huaban/issues"
   },
-  "homepage": "https://github.com/magicdawn/node-huaban#readme",
+  "homepage": "https://github.com/koalaylj/node-huaban#readme",
   "dependencies": {
     "chalk": "^2.3.1",
     "debug": "^3.1.0",
-    "fs-extra": "^5.0.0",
+    "electron-log": "^3.0.5",
     "lodash": "^4.17.5",
     "log-reject-error": "^0.0.2",
     "log-symbols": "^2.2.0",
@@ -44,17 +45,15 @@
     "node": ">=7.6.0"
   },
   "devDependencies": {
+    "del": "^4.1.1",
+    "devtron": "^1.4.0",
+    "electron": "^5.0.2",
+    "electron-packager": "^13.1.1",
     "eslint": "^4.18.1",
+    "gulp": "^4.0.2",
+    "gulp-zip": "^4.2.0",
     "husky": "^0.15.0-rc.13",
-    "prettier": "^1.11.1"
-  },
-  "files": [
-    "lib",
-    "bin"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run format && git add lib/*.js bin"
-    }
+    "prettier": "^1.11.1",
+    "yargs": "^13.2.4"
   }
 }

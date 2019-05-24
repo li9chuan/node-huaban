@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>花瓣花瓣下载</title>
+
+  <script>
+    const {
+      ipcRenderer,
+      remote
+    } = require('electron');
+
+    const {
+      dialog
+    } = remote;
+
+    const path = require('path');
+    const url = require('url');
+
+    function download() {
+
+      let url = document.getElementById('url').value;
+      let dir = document.getElementById('dir').value;
+
+      dir = dir || __dirname;
+      ipcRenderer.send('download', url, dir);
+    }
+
+    function showOpenDialog() {
+      let selectDir = dialog.showOpenDialog({
+        properties: ['openDirectory', 'createDirectory']
+      });
+      selectDir = selectDir || '';
+      document.getElementById('dir').value = selectDir;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById('dir').value = __dirname;
+      document.getElementById('download').addEventListener('click', download);
+      document.getElementById('showOpenDialog').addEventListener('click', showOpenDialog);
+    }, false);
+  </script>
+</head>
+
+<body>
+  <h1>Version Informations</h1> Node:
+  <script>
+    document.write(process.versions.node)
+  </script>
+
+  Chrome:
+  <script>
+    document.write(process.versions.chrome)
+  </script>
+
+  Electron:
+  <script>
+    document.write(process.versions.electron)
+  </script>
+
+  <div class="">
+    url: <textarea id="url" rows="1" cols="80">https://huaban.com/boards/28669491/</textarea>
+  </div>
+
+  <div class="">
+    dir: <textarea id="dir" rows="1" cols="80"></textarea>
+    <button type="button" id="showOpenDialog">选择存放目录</button>
+  </div>
+
+  <div class="">
+    <button type="button" id="download">开始下载</button>
+  </div>
+</body>
+
+</html>

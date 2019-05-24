@@ -3,8 +3,10 @@
 const _ = require('lodash')
 const minimist = require('minimist')
 const debug = require('debug')('huaban:cli')
-const HuabanBoard = require('../lib')
+const HuabanBoard = require('../src/huaban')
 const pkgVersion = require('../package').version
+const path = require('path')
+
 require('log-reject-error')()
 
 const argv = minimist(process.argv.slice(2), {
@@ -58,7 +60,7 @@ async function main() {
   const start = Date.now()
 
   // download
-  const board = new HuabanBoard(url)
+  const board = new HuabanBoard(url,path.resolve(__dirname,'../'))
   await board.init()
 
   // title & name
