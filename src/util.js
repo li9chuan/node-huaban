@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const fse = require('fs-extra')
 const pretry = require('promise.retry')
 const r = require('request')
 const rp = require('request-promise').defaults({
@@ -59,6 +60,7 @@ exports.download = (src, dest, onCancel) =>
   new Promise((resolve, reject) => {
     // ensure
     dest = path.resolve(dest)
+    fse.ensureDirSync(path.dirname(dest))
     const s = fs.createWriteStream(dest)
 
     // construct

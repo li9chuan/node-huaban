@@ -10,6 +10,10 @@ const {
   BrowserWindow
 } = electron
 
+app.commandLine.appendSwitch('--ignore-gpu-blacklist')
+app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required')
+
+
 let _mainWindow
 
 // Menu.setApplicationMenu(null)
@@ -22,6 +26,8 @@ function ready() {
     show: false,
     webPreferences: {
       devTools: true,
+      allowRunningInsecureContent: true, // 允许一个 https 页面运行 http url 里的资源，包括 JavaScript, CSS 或 plugins.
+      webSecurity: false,
       nodeIntegration: true
     }
   })

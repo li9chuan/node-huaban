@@ -16,7 +16,6 @@ function download() {
 
   let url = document.getElementById('url').value
   let dir = document.getElementById('dir').value
-
   dir = dir || __dirname
   ipcRenderer.send('download', url, dir)
 }
