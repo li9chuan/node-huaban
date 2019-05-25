@@ -9,6 +9,7 @@ const del = require('del')
 const argv = require('yargs').argv
 const zip = require('gulp-zip')
 const os = require('os')
+const pkg = require('./package.json')
 
 const packager = require('electron-packager')
 
@@ -17,11 +18,10 @@ function clean(next) {
   next()
 }
 
-
 function archive() {
   let platform = argv.platform || os.platform()
   let arch = argv.arch || os.arch()
-  let name = `huaban-${platform}-${arch}`
+  let name = `${pkg.name}-${platform}-${arch}`
   return src(`dist/${name}/**/*`)
     .pipe(zip(`${name}.zip`))
     .pipe(dest('dist'))
@@ -30,12 +30,13 @@ function archive() {
 function pack(next) {
 
   let options = {
-    dir: './lib',
-    name: 'huaban',
+    dir: './',
+    name: pkg.name,
     out: './dist',
     // asar: true,
     platform: argv.platform || os.platform(),
     arch: argv.arch || os.arch(),
+    // ignore: ['dist/', 'bin/', 'README.md'],
     overwrite: true
   }
 
@@ -45,4 +46,4 @@ function pack(next) {
     })
 }
 
-exports.pack = series(clean, pack, archive)
+exports.pack = series(clean, pack)

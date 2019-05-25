@@ -1,5 +1,4 @@
 const path = require('path')
-// const fse = require('fs-extra')
 const sanitizeFilename = require('sanitize-filename')
 const _ = require('lodash')
 const mime = require('mime')

@@ -1,11 +1,10 @@
 {
-  "name": "node-huaban",
+  "name": "huaban",
   "version": "1.4.0",
   "description": "huaban(huaban.com) board downloader",
-  "main": "src/huaban.js",
+  "main": "src/main.js",
   "scripts": {
-    "start": "electron lib/",
-    "format": "prettier --write lib/**/*.js bin/*",
+    "start": "electron .",
     "pack": "gulp pack",
     "download": "node bin/huaban https://huaban.com/boards/28669491/ -c 10"
   },
@@ -22,23 +21,17 @@
   ],
   "author": "koalaylj",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/koalaylj/node-huaban/issues"
-  },
-  "homepage": "https://github.com/koalaylj/node-huaban#readme",
   "dependencies": {
-    "chalk": "^2.3.1",
-    "debug": "^3.1.0",
+    "debug": "^4.1.1",
     "electron-log": "^3.0.5",
-    "lodash": "^4.17.5",
     "log-reject-error": "^0.0.2",
     "log-symbols": "^2.2.0",
-    "mime": "^2.2.0",
+    "mime": "^2.4.3",
     "minimist": "^1.2.0",
     "promise.map": "^0.0.2",
     "promise.retry": "^0.1.0",
-    "request": "^2.83.0",
-    "request-promise": "^4.2.2",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
     "sanitize-filename": "^1.6.1"
   },
   "engines": {
@@ -46,14 +39,11 @@
   },
   "devDependencies": {
     "del": "^4.1.1",
-    "devtron": "^1.4.0",
     "electron": "^5.0.2",
     "electron-packager": "^13.1.1",
     "eslint": "^4.18.1",
     "gulp": "^4.0.2",
     "gulp-zip": "^4.2.0",
-    "husky": "^0.15.0-rc.13",
-    "prettier": "^1.11.1",
     "yargs": "^13.2.4"
   }
 }

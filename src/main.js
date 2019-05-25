@@ -1,6 +1,6 @@
+const electron = require('electron')
 const HuabanBoard = require('./huaban')
 const log = require('electron-log')
-const electron = require('electron')
 
 const {
   app,
@@ -10,20 +10,9 @@ const {
   BrowserWindow
 } = electron
 
-app.commandLine.appendSwitch('--ignore-gpu-blacklist')
-app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required')
-
-
-
 let _mainWindow
 
 // Menu.setApplicationMenu(null)
-
-// Chrome by default black lists certain GPUs because of bugs.
-// if your are not able to view webgl try enabling --ignore-gpu-blacklist option
-// But, this will make electron/chromium less stable.
-app.commandLine.appendSwitch('--ignore-gpu-blacklist')
-app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required')
 
 function ready() {
 
@@ -33,9 +22,7 @@ function ready() {
     show: false,
     webPreferences: {
       devTools: true,
-      nodeIntegration: true,
-      allowRunningInsecureContent: true, // 允许一个 https 页面运行 http url 里的资源，包括 JavaScript, CSS 或 plugins.
-      webSecurity: false
+      nodeIntegration: true
     }
   })
 
@@ -44,7 +31,12 @@ function ready() {
   })
 
   globalShortcut.register('ESC', () => {
-    dialog.showMessageBox(_mainWindow, { type: 'question', buttons: ['ok', 'cancel'], title: '确认', message: '确认关闭窗口?' }, (button, checked) => {
+    dialog.showMessageBox(_mainWindow, {
+      type: 'question',
+      buttons: ['ok', 'cancel'],
+      title: '确认',
+      message: '确认关闭窗口?'
+    }, (button, checked) => {
       if (button === 0) {
         _mainWindow.close()
       }

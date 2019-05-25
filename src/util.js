@@ -1,6 +1,5 @@
 const path = require('path')
 const fs = require('fs')
-const fse = require('fs-extra')
 const pretry = require('promise.retry')
 const r = require('request')
 const rp = require('request-promise').defaults({
@@ -11,7 +10,7 @@ const rp = require('request-promise').defaults({
  * get html for url
  */
 
-exports.getHtml = function(url, query) {
+exports.getHtml = function (url, query) {
   return rp.get(url, {
     qs: query,
   })
@@ -21,7 +20,7 @@ exports.getHtml = function(url, query) {
  * match right
  */
 
-exports.getRight = function(input, fi) {
+exports.getRight = function (input, fi) {
   const pairs = {
     '(': ')',
     '{': '}',
@@ -60,7 +59,6 @@ exports.download = (src, dest, onCancel) =>
   new Promise((resolve, reject) => {
     // ensure
     dest = path.resolve(dest)
-    fse.ensureDirSync(path.dirname(dest))
     const s = fs.createWriteStream(dest)
 
     // construct
@@ -70,7 +68,7 @@ exports.download = (src, dest, onCancel) =>
     req
       .pipe(s)
       .on('error', reject)
-      .on('finish', function() {
+      .on('finish', function () {
         this.close(() => {
           resolve()
         })
@@ -87,7 +85,7 @@ exports.download = (src, dest, onCancel) =>
  * tryDownload with timeout & times
  */
 
-exports.tryDownload = async function(src, dest, timeout, times) {
+exports.tryDownload = async function (src, dest, timeout, times) {
   const fn = pretry(exports.download, {
     times,
     timeout,
