@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "pack": "gulp pack",
+    "pack:macOS": "gulp pack --platform darwin --arch x64",
+    "pack:win64": "gulp pack --platform win32  --arch x64",
     "download": "node bin/huaban https://huaban.com/boards/28669491/ -c 10"
   },
   "bin": {

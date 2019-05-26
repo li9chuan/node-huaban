@@ -13,11 +13,6 @@ const pkg = require('./package.json')
 
 const packager = require('electron-packager')
 
-function clean(next) {
-  del.sync('dist')
-  next()
-}
-
 function archive() {
   let platform = argv.platform || os.platform()
   let arch = argv.arch || os.arch()
@@ -46,4 +41,4 @@ function pack(next) {
     })
 }
 
-exports.pack = series(clean, pack)
+exports.pack = series(pack, archive)

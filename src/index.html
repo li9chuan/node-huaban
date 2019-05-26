@@ -3,22 +3,73 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>花瓣花瓣下载</title>
+    <title>花瓣画板批量下载</title>
+    <style>
+      body {
+        /* background-color: #424c50; */
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+
+      ul {
+        list-style: none;
+        word-wrap: break-word;
+      }
+
+      .grid {
+        width: 95vw;
+        height: 100vh;
+        display: grid;
+        grid-template-rows: 40px 40px auto;
+        margin: 20px 20px 20px 20px;
+      }
+
+      .cell {
+        display: table-cell;
+        margin: 5px 5px 5px 5px;
+        padding: 0
+      }
+
+      .logArea {
+        /* height: 80vh; */
+        overflow: scroll;
+        padding-bottom: 60px;
+      }
+
+      .messages {
+        height: 100%;
+        margin: 0;
+        overflow-y: scroll;
+      }
+
+      .log {
+        color: gray;
+        font-size: 70%;
+        margin: 5px;
+        text-align: center;
+      }
+    </style>
     <script src="./render.js"></script>
   </head>
 
   <body>
-    <div class="">
-      url: <textarea id="url" rows="1" cols="80">https://huaban.com/boards/28669491/</textarea>
-    </div>
+    <div class="grid">
 
-    <div class="">
-      dir: <textarea id="dir" rows="1" cols="80"></textarea>
-      <button type="button" id="showOpenDialog">选择存放目录</button>
-    </div>
+      <div class="cell">
+        dir: <textarea id="dir" rows="1" cols="80"></textarea>
+        <button type="button" id="showOpenDialog">选择存放目录</button>
+      </div>
 
-    <div class="">
-      <button type="button" id="download">开始下载</button>
+      <div class="cell">
+        url: <textarea id="url" rows="1" cols="80">https://huaban.com/boards/28669491/</textarea>
+        <button type="button" id="download">开始下载</button>
+      </div>
+
+      <div class="cell logArea">
+        <ul id="messages" class="messages"></ul>
+      </div>
     </div>
   </body>
 

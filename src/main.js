@@ -1,6 +1,7 @@
 const electron = require('electron')
 const HuabanBoard = require('./huaban')
 const log = require('electron-log')
+const path = require('path')
 
 const {
   app,
@@ -21,9 +22,10 @@ let _mainWindow
 function ready() {
 
   _mainWindow = new BrowserWindow({
-    minWidth: 1024,
-    minHeight: 768,
+    minWidth: 800,
+    minHeight: 600,
     show: false,
+    icon: path.join(__dirname, 'logo.jpeg'),
     webPreferences: {
       devTools: true,
       allowRunningInsecureContent: true, // 允许一个 https 页面运行 http url 里的资源，包括 JavaScript, CSS 或 plugins.
@@ -63,9 +65,7 @@ function ready() {
 app.on('ready', ready)
 
 app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  app.quit()
 })
 
 app.on('activate', function () {
@@ -89,12 +89,18 @@ async function download(url, dest) {
 
   // download
   const board = new HuabanBoard(url, dest)
+  board.on('log', log => {
+    _mainWindow.webContents.send('log', log);
+  })
+
   await board.init()
   // title & name
+  _mainWindow.webContents.send('log', `花瓣画板: [${board.title}], 共 ${board.pins.length} 张图片`);
   log.info(`花瓣画板: [${board.title}], 共 ${board.pins.length} 张图片`)
   await board.downloadBoard(concurrency, timeout, maxTimes)
 
   // end
   const end = Date.now()
+  _mainWindow.webContents.send('log', `下载完毕 耗时 ${(end - start) / 1000} 秒`);
   log.info('下载完毕 耗时 %s 秒', (end - start) / 1000)
 }

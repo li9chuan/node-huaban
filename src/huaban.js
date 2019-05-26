@@ -7,6 +7,11 @@ const logSymbols = require('log-symbols')
 const pmap = require('promise.map')
 const util = require('./util')
 const log = require('electron-log')
+var events = require("events");
+
+log.transports.console.level = 'silly';
+log.transports.file.level = false;
+log.transports.console.level = true;
 
 /**
  * image host
@@ -80,8 +85,9 @@ const getPins = async (url, total) => {
   })
 }
 
-module.exports = class HuabanBoard {
+module.exports = class HuabanBoard extends events.EventEmitter {
   constructor(url, dest) {
+    super()
     this.url = url
     this.dest = dest
     this.title = undefined
@@ -113,6 +119,7 @@ module.exports = class HuabanBoard {
     // pad length
     const numLength = String(this.pins.length).length
     const length = this.pins.length
+    const self = this
 
     return await pmap(
       this.pins,
@@ -124,9 +131,11 @@ module.exports = class HuabanBoard {
         return util
           .tryDownload(pin.src, dest, timeout, maxTimes)
           .then(function () {
+            self.emit('log', `✅${num}/${length} success`)
             log.info(`${logSymbols.success} %s/%s success`, num, length)
           })
           .catch(function (e) {
+            self.emit('log', `❌${num}/${length} failed`)
             log.error(`${logSymbols.error} %s/%s failed`, num, length)
             log.error(e.stack || e)
           })
