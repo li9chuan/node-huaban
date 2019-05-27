@@ -1,6 +1,5 @@
 # node-huaban
-> 花瓣(http://huaban.com) 画板可视化下载器
-> [node-huaban](https://github.com/magicdawn/node-huaban) 带界面版本
+> 花瓣(http://huaban.com) 画板可视化下载器,[node-huaban](https://github.com/magicdawn/node-huaban) 带界面版本
 
 ### 最新工具下载地址
 * [macOS](https://github.com/proudcat/node-huaban/releases/download/v2.0/huaban-darwin-x64.zip)
