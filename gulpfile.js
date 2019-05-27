@@ -28,7 +28,7 @@ function pack(next) {
     dir: './',
     name: pkg.name,
     out: './dist',
-    // asar: true,
+    asar: true,
     platform: argv.platform || os.platform(),
     arch: argv.arch || os.arch(),
     // ignore: ['dist/', 'bin/', 'README.md'],

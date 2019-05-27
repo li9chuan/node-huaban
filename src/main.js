@@ -24,6 +24,8 @@ function ready() {
   _mainWindow = new BrowserWindow({
     minWidth: 800,
     minHeight: 600,
+    width:1024,
+    height:768,
     show: false,
     icon: path.join(__dirname, 'logo.jpeg'),
     webPreferences: {
@@ -54,7 +56,7 @@ function ready() {
   _mainWindow.loadURL(`file://${__dirname}/index.html`)
 
   // Open the DevTools.
-  _mainWindow.webContents.openDevTools()
+  // _mainWindow.webContents.openDevTools()
 
   _mainWindow.on('closed', function () {
     _mainWindow = null
@@ -66,12 +68,6 @@ app.on('ready', ready)
 
 app.on('window-all-closed', function () {
   app.quit()
-})
-
-app.on('activate', function () {
-  if (_mainWindow === null) {
-    ready()
-  }
 })
 
 

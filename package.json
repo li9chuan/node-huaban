@@ -1,6 +1,6 @@
 {
   "name": "huaban",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "huaban(huaban.com) board downloader",
   "main": "src/main.js",
   "scripts": {
