@@ -4,7 +4,7 @@
 
 ### 最新工具下载地址
 * [macOS](https://github.com/proudcat/node-huaban/releases/download/v2.0/huaban-darwin-x64.zip)
-* [windows 64](https://github.com/proudcat/node-huaban/releases/download/v2.0/huaban-win32-x64.zip)
+* [windows 64](https://github.com/proudcat/node-huaban/releases/download/v2.1/huaban-win32-x64.zip)
 
 ### 注意
 * url必须是合法的画板地址，例如: `https://huaban.com/boards/28669491/`
